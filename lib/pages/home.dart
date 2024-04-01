@@ -14,51 +14,55 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    arguments ??= ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    print("Received arguments: $arguments"); // Add this line to check the received arguments
+    arguments ??=
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    print(
+        "Received arguments: $arguments"); // Add this line to check the received arguments
 
     // Check if arguments is not null and is of type Map<dynamic, dynamic>
-    if (arguments != null && arguments is Map<dynamic, dynamic> ) {
+    if (arguments != null && arguments is Map<dynamic, dynamic>) {
       // Extract the location from arguments
       var location = arguments!['location'];
       var time = arguments!['time'];
       // set Background image based on the bool variable
-      var bgImg = arguments!['isDay'] ? 'day.png' : 'night.png' ;
+      var bgImg = arguments!['isDay'] ? 'day.png' : 'night.png';
 
       return Scaffold(
         body: SafeArea(
           child: Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(bgImg),
-                fit: BoxFit.cover ,
-              )
-            ),
+                image: DecorationImage(
+              image: AssetImage(bgImg),
+              fit: BoxFit.cover,
+            )),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
               child: SafeArea(
                 child: Column(
                   children: <Widget>[
-                    TextButton (
+                    TextButton(
                       onPressed: () async {
-                       dynamic result =  await Navigator.pushNamed(context, "/location");
-                       setState(() {
-                         arguments  = {
-                           'time' : result['time'],
-                           'location' : result['location'],
-                           'isDay' : result['isDay'] ,
-                           'flag' : result['flag']
-                         };
-                       });
+                        dynamic result =
+                            await Navigator.pushNamed(context, "/location");
+                        setState(() {
+                          arguments = {
+                            'time': result['time'],
+                            'location': result['location'],
+                            'isDay': result['isDay'],
+                            'flag': result['flag']
+                          };
+                        });
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children:  [
+                        children: [
                           Icon(
                             Icons.edit_location,
                             color: Colors.grey[300],
                           ),
-                          SizedBox(width: 8), // Add some space between the icon and text
+                          SizedBox(
+                              width:
+                                  8), // Add some space between the icon and text
                           Text(
                             'Edit Location',
                             style: TextStyle(
@@ -75,15 +79,41 @@ class _HomeState extends State<Home> {
                       children: <Widget>[
                         Text(
                           '$location',
-                          style: TextStyle(fontSize: 20.0 ,  color: Colors.grey[300],), // Adjust font size as needed
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.grey[300],
+                          ), // Adjust font size as needed
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.0) ,
-                Text(
-                  '$time',
-                  style: TextStyle(fontSize: 66.0,  color: Colors.grey[300],),
-                )
+                    SizedBox(height: 20.0),
+                    Text(
+                      '$time',
+                      style: TextStyle(
+                        fontSize: 66.0,
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    // Conditional check to display Text widget
+                    if (location == 'Gaza')
+                      Column(
+                        children: [
+                          Text(
+                            'FREE Palestine || FREE Gaza',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Image.asset(
+                            'Palestine.png', // Specify the path to your image
+                            width: 200.0, // Adjust the width as needed
+                            height: 200.0, // Adjust the height as needed
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:flutter/material.dart';
 import 'package:world_time/services/world_time.dart';
 
@@ -12,12 +11,14 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-
   List<WorldTime> locations = [
+    WorldTime(url: 'Asia/Gaza', location: 'Gaza', flag: 'Palestine.png'),
+    WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
     WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
     WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
     WorldTime(url: 'Europe/Athens', location: 'Athens', flag: 'greece.png'),
-    WorldTime(url: 'Africa/Casablanca', location: 'Casablanca', flag: 'morocco.png'),
+    WorldTime(
+        url: 'Africa/Casablanca', location: 'Casablanca', flag: 'morocco.png'),
     WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
     WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
     WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
@@ -25,19 +26,18 @@ class _ChooseLocationState extends State<ChooseLocation> {
     WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
   ];
-  
+
   void updateTime(index) async {
-    WorldTime obj = locations[index] ;
-    await obj.getData() ;
+    WorldTime obj = locations[index];
+    await obj.getData();
     // navigate to the home screen
-    Navigator.pop(context,  {
-      "location" : obj.location,
-      "flag" : obj.flag,
-      "time" : obj.time,
-      "isDay" : obj.isDay
+    Navigator.pop(context, {
+      "location": obj.location,
+      "flag": obj.flag,
+      "time": obj.time,
+      "isDay": obj.isDay
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
